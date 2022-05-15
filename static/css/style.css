@@ -3,12 +3,12 @@ Common
 **********************/
 
 html, body {
-  height: 100%;
+  height: 100;
 }
 
 .content {
   max-width: 600px;
-  height: 100%;
+  height: 100;
   margin: 0 auto;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
@@ -92,4 +92,14 @@ posts li .menu a {
   .posts li .name_body .name {
     font-size: 40px;
   }
+}
+
+.main-header .menu_icon {
+  width: 50px;
+  margin-right: 20px;
+}
+
+.main-header {
+  display: flex;
+  margin-left: 40px;
 }

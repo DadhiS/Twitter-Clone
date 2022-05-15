@@ -9,11 +9,15 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+import cloudinary 
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +29,7 @@ SECRET_KEY = 'django-insecure-#_4y=mb_0qnyc&qifpv+4b6#_ee%wz9(6l&aui(2w#g1m@e_f$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts'
+    'posts',
+    'cloudinary', 
 ]
 
 MIDDLEWARE = [
@@ -48,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'django_startup.urls'
@@ -55,7 +62,7 @@ ROOT_URLCONF = 'django_startup.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR , 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +86,7 @@ WSGI_APPLICATION = 'django_startup.wsgi.application'
 DATABASES = {
     'default': {
       'ENGINE': 'django.db.backends.sqlite3',
-     'NAME': BASE_DIR / 'db.sqlite3',
+     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
   }
 }
 
@@ -121,12 +128,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+cloudinary.config( 
+  cloud_name = "dacuzlsac", 
+  api_key = "699684819811665", 
+  api_secret = "nG1hNTcCHUwrm39EYFZ6vfr22nI" 
+)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

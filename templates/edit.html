@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %} 
+{% load static %}
+<section class="content">
+  <div class="main-header">
+    <img class="menu_icon js-menu-icon" src="{% static 'img/web.png' %}" />
+    <h1>edit</h1>
+  </div>
+  <section class="post_form">
+   <form action="/edit/{{post.id}}/" method="POST" enctype="multipart/form-data">
+     {% csrf_token %}
+    <input type="text" name="name" value="{{post.name}}"required>
+    <input name="body" type="text" value="{{post.body}}" required>
+
+    {% if post.image.url %}
+         <img src="{{post.image.url}}" style="width:300px; height: 300px;">
+    {% endif %}
+    <input type="file" name="image" placeholder='Choose File'>
+    <input type="submit" value="Edit" style="width: 50px; background-color:aqua">
+    <input type="submit" value="cancel" style="width: 50px; background-color:red">
+   </form>
+  </section>
+  </section>
+{% endblock %}
